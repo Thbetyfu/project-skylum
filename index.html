@@ -39,7 +39,7 @@
         <p class="vision reveal">
             Sebuah protokol fondasi untuk metaverse yang sepenuhnya terdesentralisasi, diatur oleh kode yang transparan untuk menciptakan kesetaraan hak dan kesempatan bagi semua.
         </p>
-        <a href="https://drive.google.com/file/d/16QDv-c24mxvvGBuOX6C3i7vjSsRT__ID/view?usp=sharing" class="cta-button reveal">Unduh Whitepaper v1.0</a>
+        <a href="https://drive.google.com/file/d/1Ew4cQcqoUzQcKIlxhpybS9w2KuNt4I2g/view?usp=drive_link" class="cta-button reveal">Unduh Whitepaper v1.0</a>
     </main>
 
     <div class="marquee-container">
@@ -145,25 +145,8 @@
     <!-- BLOG/UPDATE BERITA SECTION -->
     <section class="blog-section reveal" data-reveal="zoom-out">
       <h3>Update & Berita Terbaru</h3>
-      <div class="blog-list">
-        <article class="blog-card">
-          <h4>Peluncuran Testnet Skylum</h4>
-          <p class="blog-date">26 Juni 2025</p>
-          <p>Testnet Skylum resmi dibuka untuk publik! Developer dan komunitas dapat mulai mencoba fitur blockchain, smart contract, dan wallet RiQi.</p>
-          <a href="#" class="blog-link">Baca selengkapnya</a>
-        </article>
-        <article class="blog-card">
-          <h4>Partnership dengan Komunitas NFT</h4>
-          <p class="blog-date">20 Juni 2025</p>
-          <p>Skylum menjalin kolaborasi dengan komunitas NFT lokal untuk memperluas ekosistem kreator dan adopsi teknologi on-chain royalty.</p>
-          <a href="#" class="blog-link">Baca selengkapnya</a>
-        </article>
-        <article class="blog-card">
-          <h4>Whitepaper v1.0 Dirilis</h4>
-          <p class="blog-date">10 Juni 2025</p>
-          <p>Dokumen whitepaper resmi telah dirilis, membahas visi, teknologi, dan roadmap Project Skylum secara detail.</p>
-          <a href="#" class="blog-link">Unduh Whitepaper</a>
-        </article>
+      <div class="blog-list" id="blog-list">
+        <!-- Blog cards will be injected here by JS -->
       </div>
     </section>
 
@@ -279,6 +262,27 @@
       }
       window.addEventListener('scroll', revealRoadmapZigzag);
       window.addEventListener('DOMContentLoaded', revealRoadmapZigzag);
+    </script>
+    <script>
+      // Blog loader: fetch blog.json and render cards
+      fetch('blog.json')
+        .then(res => res.json())
+        .then(data => {
+          const blogList = document.getElementById('blog-list');
+          if (!blogList) return;
+          blogList.innerHTML = '';
+          data.forEach(item => {
+            const card = document.createElement('article');
+            card.className = 'blog-card';
+            card.innerHTML = `
+              <h4>${item.title}</h4>
+              <p class="blog-date">${item.date}</p>
+              <p>${item.summary}</p>
+              <a href="${item.link}" class="blog-link">${item.linkLabel || 'Baca selengkapnya'}</a>
+            `;
+            blogList.appendChild(card);
+          });
+        });
     </script>
 </body>
 </html>
